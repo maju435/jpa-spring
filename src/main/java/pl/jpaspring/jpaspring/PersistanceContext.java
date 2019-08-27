@@ -24,7 +24,7 @@ class PersistenceContext {
         return dataSource;
     }
 
-    @Bean
+    @Bean(name = "CustomerRepo")
     public CustomerRepo customerRepo () {
         return new CustomerRepoImpl();
     }

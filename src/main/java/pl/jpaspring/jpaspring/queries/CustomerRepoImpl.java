@@ -22,8 +22,8 @@ public class CustomerRepoImpl implements CustomerRepo{
         List<CustomerEntity> customers = Collections.emptyList();
         if (aLastName != null) {
             customers = em.createQuery(
-                    "select c from CustomerEntity c where c.lastName =" + aLastName,
-                    CustomerEntity.class)
+                    "select c from CustomerEntity c where c.lastName = :lastname",
+                    CustomerEntity.class).setParameter("lastname", aLastName)
                     .getResultList();
         }
         return customers;

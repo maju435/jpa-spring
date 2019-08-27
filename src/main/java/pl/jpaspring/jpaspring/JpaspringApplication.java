@@ -32,6 +32,9 @@ public class JpaspringApplication {
             repository.save(new CustomerEntity("Jack", "Bauer", new Date()));
             repository.save(new CustomerEntity("Chloe", "O'Brian", new Date()));
             repository.save(new CustomerEntity("Kim", "Bauer", new Date()));
+            repository.save(new CustomerEntity("Zenek", "Martyniuk", new Date()));
+            repository.save(new CustomerEntity("Maria", "Motyka", new Date()));
+            repository.save(new CustomerEntity("Janusz", "Nowak", new Date()));
 
             // fetch all customers
             System.out.println("Customers found with findAll():");
@@ -70,7 +73,7 @@ public class JpaspringApplication {
             }
             System.out.println("");
 
-            List<CustomerEntity> customers = customerRepo.selectAll();
+            List<CustomerEntity> customers = customerRepo.selectByLastName("Bauer");
 
             System.out.println("Customers found with findAll() by EntityManager:");
             System.out.println("-------------------------------");
