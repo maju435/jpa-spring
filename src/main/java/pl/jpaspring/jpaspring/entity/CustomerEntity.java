@@ -1,7 +1,6 @@
 package pl.jpaspring.jpaspring.entity;
 
 import pl.jpaspring.jpaspring.DTO.CustomerDTO;
-
 import javax.persistence.*;
 import java.util.Date;
 

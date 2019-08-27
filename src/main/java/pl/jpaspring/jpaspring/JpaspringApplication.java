@@ -1,16 +1,25 @@
 package pl.jpaspring.jpaspring;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import pl.jpaspring.jpaspring.entity.CustomerEntity;
+import pl.jpaspring.jpaspring.queries.CustomerRepo;
 import pl.jpaspring.jpaspring.queries.CustomerRepository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @SpringBootApplication
 public class JpaspringApplication {
+
+    @Autowired
+    CustomerRepo customerRepo;
 
 	public static void main(String[] args) {
 		SpringApplication.run(JpaspringApplication.class, args);
@@ -47,6 +56,27 @@ public class JpaspringApplication {
             repository.findByLastName("Bauer").forEach(bauer -> {
                 System.out.println(bauer.toDTO().toString());
             });
+
+            repository.findByLastName("O'Brian").forEach(brian -> {
+                repository.delete(brian);
+            });
+            System.out.println("");
+
+            // fetch all customers
+            System.out.println("Customers found with findAll() after delete O'Brian:");
+            System.out.println("-------------------------------");
+            for (CustomerEntity customer : repository.findAll()) {
+                System.out.println(customer.toDTO().toString());
+            }
+            System.out.println("");
+
+            List<CustomerEntity> customers = customerRepo.selectAll();
+
+            System.out.println("Customers found with findAll() by EntityManager:");
+            System.out.println("-------------------------------");
+            for (CustomerEntity customer : customers) {
+                System.out.println(customer.toDTO().toString());
+            }
 
             System.out.println("");
         };
