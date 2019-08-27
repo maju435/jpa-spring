@@ -1,12 +1,8 @@
 package pl.jpaspring.jpaspring.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.jpaspring.jpaspring.DTO.CustomerDTO;
-import pl.jpaspring.jpaspring.entity.CustomerEntity;
 import pl.jpaspring.jpaspring.queries.CustomerRepo;
 import pl.jpaspring.jpaspring.web.json.TestJSON;
 
@@ -16,6 +12,7 @@ import java.util.List;
 
 
 @RestController
+@RequestMapping("json")
 public class RestControllers {
 
     @Autowired
@@ -40,7 +37,7 @@ public class RestControllers {
     @PutMapping(produces = {"application/json"})
     @RequestMapping(value = "/getbylastname")
     public List<CustomerDTO> getByName(@RequestParam(value="lastname") String lastname) {
-        List<CustomerDTO> json = new ArrayList<>();
+        List<CustomerDTO> json = Collections.emptyList();
         customerRepo.selectByLastName(lastname).forEach(customer -> {
             if (customer != null) {
                 json.add(customer.toDTO());
